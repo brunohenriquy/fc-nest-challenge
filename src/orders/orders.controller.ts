@@ -10,8 +10,8 @@ export class OrdersController {
     return this.ordersService.all();
   }
 
-  // @Post()
-  // create(@Body() body: { id: string; symbol: string; price: number; status: string; asset_id: string }) {
-  //   return this.ordersService.create(body);
-  // }
+  @Post()
+  create(@Body() body: { asset_id: string; price: number }) {
+    return this.ordersService.create(body);
+  }
 }

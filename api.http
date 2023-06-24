@@ -10,6 +10,15 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/api/assets
+Content-Type: application/json
+
+{
+  "id": "asset1",
+  "symbol": "A1"
+}
+
+###
 GET http://localhost:3000/api/assets
 
 ###
@@ -18,9 +27,16 @@ Content-Type: application/json
 
 {
   "asset_id": "asset0",
-  "shares": 5,
-  "price": 100,
-  "type": "SELL"
+  "price": 100
+}
+
+###
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+  "asset_id": "asset1",
+  "price": 200
 }
 
 ###
