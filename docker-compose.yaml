@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+      - 5555:5555
+    volumes:
+      - .:/home/node/app
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+  
+  db:
+    # instead of using image bitnami/mongodb:5.0.17 (it's not working), this image builds a replicaset in its own Dockerfile
+    build: ./mongo_rs
+    #image: bitnami/mongodb:5.0.17
+    #image: mongo:5.0.17
+    #command: mongod --replSet my-mongo-set
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_REPLICA_HOST: db
+      # MONGODB_REPLICA_SET_MODE: primary
+      # MONGODB_REPLICA_SET_KEY: 123456
+      MONGODB_DATABASE: nest
+    # volumes:
+    #   - mongodb_data:/bitnami/mongodb
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  my-network:
+    external: true
+# //Linux ou Mac
+# /etc/hosts
+
+# 127.0.0.1 host.docker.internal
+
+# //Windows
+# C:\Windows\system32\drivers\etc\hosts (bloco de notas como administrador)
+# 127.0.0.1 host.docker.internal
